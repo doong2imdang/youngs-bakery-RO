@@ -19,6 +19,10 @@ const GlobalStyles = createGlobalStyle`
     --color-grey: #B0B0B0;
     --color-red: #EC1A1A;
   }
+
+  body, button, input {
+    font-family: "DungGeunMo"
+  }
 `;
 
 export default GlobalStyles;
