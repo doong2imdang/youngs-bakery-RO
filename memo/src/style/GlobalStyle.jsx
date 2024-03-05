@@ -23,6 +23,15 @@ const GlobalStyles = createGlobalStyle`
   body, button, input {
     font-family: "DungGeunMo"
   }
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 export default GlobalStyles;
