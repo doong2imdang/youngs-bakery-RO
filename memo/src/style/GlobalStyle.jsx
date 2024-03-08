@@ -5,7 +5,8 @@ const GlobalStyles = createGlobalStyle`
   ${reset}
   button {
     border: 0;
-    background: transparent;
+    background: #b0b0b0;
+    box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px black;
     cursor: pointer;
     padding: 0;
     margin: 0;
