@@ -11,6 +11,10 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
 
+  body {
+    background-color: var(--color-blue);
+  }
+
   :root {
     --color-white: #ffffff;
     --color-black: #000000;
