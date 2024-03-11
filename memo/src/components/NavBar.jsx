@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import iconClock from "../assets/images/icon-clock.svg";
 import iconWeather from "../assets/images/icon-weather.svg";
@@ -9,30 +9,47 @@ import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const navigate = useNavigate();
+  const [clickedItem, setClickedItem] = useState(null);
 
   const handlePage = (item) => () => {
     navigate(`/${item}`);
+    setClickedItem(item);
   };
   return (
     <>
       <NavBarStyle>
-        <li onClick={handlePage("clock")}>
+        <li
+          className={clickedItem === "clock" ? "active" : ""}
+          onClick={handlePage("clock")}
+        >
           <img src={iconClock} alt="" />
           시계
         </li>
-        <li onClick={handlePage("weather")}>
+        <li
+          className={clickedItem === "weather" ? "active" : ""}
+          onClick={handlePage("weather")}
+        >
           <img src={iconWeather} alt="" />
           날씨
         </li>
-        <li onClick={handlePage("calendar")}>
+        <li
+          className={clickedItem === "calendar" ? "active" : ""}
+          onClick={handlePage("calendar")}
+        >
           <img src={iconCalendar} alt="" />
           달력
         </li>
-        <li onClick={handlePage("paintboard")}>
+        <li
+          className={clickedItem === "paintboard" ? "active" : ""}
+          onClick={handlePage("paintboard")}
+        >
           <img src={iconPaintBoard} alt="" />
           그림판
         </li>
-        <li onClick={handlePage("imageslider")}>
+        <li
+          className={clickedItem === "imageslider" ? "active" : ""}
+          onClick={handlePage("imageslider")}
+        >
           <img src={iconSlider} alt="" />
           슬라이다
         </li>
@@ -56,5 +73,9 @@ const NavBarStyle = styled.nav`
     gap: 11px;
     margin-bottom: 25px;
     cursor: pointer;
+  }
+
+  li.active {
+    color: var(--color-yellow);
   }
 `;
