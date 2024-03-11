@@ -2,12 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import questionBtn from "../assets/images/question-btn.svg";
 import deleteBtn from "../assets/images/delete-btn.svg";
-import AnalogClock from "../pages/AnalogClock";
-import DigitalClock from "../pages/DigitalClock";
-import Calendar from "../pages/Calendar";
-import PaintBoard from "../pages/PaintBoard";
-import Weather from "../pages/Weather";
-import ImageSlider from "../pages/ImageSlider";
+import Router from "../routes/Router";
 
 export default function Main() {
   return (
@@ -23,12 +18,9 @@ export default function Main() {
           </button>
         </MainBtns>
       </MainHeader>
-      <AnalogClock />
-      <DigitalClock />
-      <Calendar />
-      <PaintBoard />
-      <Weather />
-      <ImageSlider />
+      <MainContent>
+        <Router />
+      </MainContent>
     </MainStyle>
   );
 }
@@ -37,6 +29,7 @@ const MainStyle = styled.main`
   width: 95%;
   margin: 25px auto;
   background-color: var(--color-grey);
+  box-shadow: inset 5px 5px 1px white, 5px 5px 2px black;
 `;
 
 const MainHeader = styled.div`
@@ -50,10 +43,22 @@ const MainHeader = styled.div`
   color: var(--color-white);
   font-size: 30px;
 
-  img {
+  button {
     width: 35px;
     height: 35px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
+`;
+
+const MainContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const MainBtns = styled.div`
