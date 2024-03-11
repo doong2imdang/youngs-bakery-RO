@@ -3,12 +3,39 @@ import styled from "styled-components";
 import questionBtn from "../assets/images/question-btn.svg";
 import deleteBtn from "../assets/images/delete-btn.svg";
 import Router from "../routes/Router";
+import { useLocation } from "react-router-dom";
 
 export default function Main() {
+  const location = useLocation();
+  const path = location.pathname;
+  const itemPart = path.split("/").pop();
+  console.log(itemPart);
+
+  let content;
+  switch (itemPart) {
+    case "clock":
+      content = "시계";
+      break;
+    case "weather":
+      content = "날씨";
+      break;
+    case "calendar":
+      content = "달력";
+      break;
+    case "imageslider":
+      content = "슬라이다";
+      break;
+    case "paintboard":
+      content = "그림판";
+      break;
+    default:
+      content = "";
+  }
+
   return (
     <MainStyle>
       <MainHeader>
-        <h2>시계</h2>
+        <h2>{content}</h2>
         <MainBtns>
           <button type="button">
             <img src={questionBtn} alt="" />
