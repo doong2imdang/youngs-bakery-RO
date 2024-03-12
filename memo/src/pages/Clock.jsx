@@ -1,26 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import analogClockBg from "../assets/images/analog-clock-bg.svg";
 
 export default function Clock() {
+  const [time, setTime] = useState(new Date());
+
+  const updateClock = () => {
+    setTime(new Date());
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(updateClock, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const formatTime = (time) => {
+    const hours = String(time.getHours()).padStart(2, "0");
+    const minutes = String(time.getMinutes()).padStart(2, "0");
+    const seconds = String(time.getSeconds()).padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
+  };
+
+  const formatDate = (time) => {
+    const year = time.getFullYear();
+    const month = String(time.getMonth() + 1).padStart(2, "0");
+    const day = String(time.getDate()).padStart(2, "0");
+    return `${year}/${month}/${day}`;
+  };
+
   return (
     <>
       <AnalogBox>
         <AnalogBoxInner image={analogClockBg}>
           <AnalogTime>
-            <Time hr></Time>
+            <Time
+              hr
+              angle={
+                (time.getHours() % 12) * 30 + (time.getMinutes() / 60) * 30
+              }
+            ></Time>
           </AnalogTime>
           <AnalogTime>
-            <Time mn></Time>
+            <Time mn angle={time.getMinutes() * 6}></Time>
           </AnalogTime>
           <AnalogTime>
-            <Time sc></Time>
+            <Time sc angle={time.getSeconds() * 6}></Time>
           </AnalogTime>
         </AnalogBoxInner>
       </AnalogBox>
       <DigitalBox>
-        <DigitalTime>00:00:00</DigitalTime>
-        <DigitalDate>0000/00/00</DigitalDate>
+        <DigitalTime>{formatTime(time)}</DigitalTime>
+        <DigitalDate>{formatDate(time)}</DigitalDate>
       </DigitalBox>
     </>
   );
@@ -69,22 +99,22 @@ const AnalogTime = styled.div`
 const Time = styled.div`
   display: flex;
   justify-content: center;
+  transform: rotateZ(${(props) => props.angle}deg);
   ${(props) =>
     props.hr &&
     css`
-      width: 220px;
-      height: 220px;
+      width: 190px;
+      height: 190px;
       &::before {
         content: "";
         position: absolute;
         width: 17px;
-        height: 120px;
+        height: 105px;
         background: black;
         z-index: 10;
         border-radius: 50px;
       }
     `}
-
   ${(props) =>
     props.mn &&
     css`
@@ -100,7 +130,6 @@ const Time = styled.div`
         border-radius: 50px;
       }
     `}
-
     ${(props) =>
     props.sc &&
     css`
@@ -109,13 +138,13 @@ const Time = styled.div`
       &::before {
         content: "";
         position: absolute;
-        width: 13px;
-        height: 145px;
+        width: 9px;
+        height: 140px;
         background: black;
         z-index: 0;
         border-radius: 50px;
       }
-    `}
+    `};
 `;
 
 const DigitalBox = styled.div`
