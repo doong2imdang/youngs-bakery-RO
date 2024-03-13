@@ -54,6 +54,7 @@ export default function Main() {
 
 const MainStyle = styled.main`
   width: 95%;
+  height: 95%;
   margin: 25px auto;
   background-color: var(--color-grey);
   box-shadow: inset 5px 5px 1px white, 5px 5px 2px black;
@@ -83,6 +84,7 @@ const MainHeader = styled.div`
 
 const MainContent = styled.div`
   display: flex;
+  height: 85%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
