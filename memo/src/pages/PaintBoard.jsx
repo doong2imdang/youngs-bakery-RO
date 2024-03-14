@@ -1,16 +1,50 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 export default function PaintBoard() {
+  const canvas = useRef(null);
+
+  const [ctx, setCtx] = useState(undefined);
+  const [isPainting, setIsPainting] = useState(false);
+
+  useEffect(() => {
+    const canvasCtx = canvas.current.getContext("2d");
+    setCtx(canvasCtx);
+  }, []);
+
+  const onMove = (e) => {
+    if (isPainting && ctx) {
+      ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+      ctx.stroke();
+    }
+  };
+
+  const startPainting = () => {
+    if (ctx) {
+      ctx.beginPath();
+      setIsPainting(true);
+    }
+  };
+
+  const cancelPainting = () => {
+    setIsPainting(false);
+  };
+
   return (
     <PaintBoardStyle>
-      <Canvas></Canvas>
+      <Canvas
+        ref={canvas}
+        width={500}
+        height={500}
+        onMouseMove={onMove}
+        onMouseDown={startPainting}
+        onMouseUp={cancelPainting}
+        onMouseLeave={cancelPainting}
+      ></Canvas>
       <div className="btns-colors">
         <ul className="btns">
           <li>
-            <button className="draw-mode-btn" type="button">
-              Fill
-            </button>
+            <button className="draw-mode-btn">Fill</button>
           </li>
           <li>
             <button className="erase-btn" type="button">
@@ -31,56 +65,48 @@ export default function PaintBoard() {
             <div
               className="color-option"
               style={{ backgroundColor: "#000000" }}
-              data-color="#000000"
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#ffffff" }}
-              data-color="#ffffff"
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#f40407" }}
-              data-color="#f40407"
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#fcfd07" }}
-              data-color="#fcfd07"
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#29fd09" }}
-              data-color="#29fd09"
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#32fefd" }}
-              data-color="#32fefd"
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#1d02fe" }}
-              data-color="#1d02fe"
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#fe00ff" }}
-              data-color="#fe00ff"
             ></div>
           </li>
         </ul>
