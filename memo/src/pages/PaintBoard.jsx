@@ -6,11 +6,18 @@ export default function PaintBoard() {
 
   const [ctx, setCtx] = useState(undefined);
   const [isPainting, setIsPainting] = useState(false);
+  const [lineWidth, setLineWidth] = useState(5);
 
   useEffect(() => {
     const canvasCtx = canvas.current.getContext("2d");
     setCtx(canvasCtx);
   }, []);
+
+  useEffect(() => {
+    if (ctx) {
+      ctx.lineWidth = lineWidth;
+    }
+  }, [lineWidth, ctx]);
 
   const onMove = (e) => {
     if (isPainting && ctx) {
@@ -29,6 +36,13 @@ export default function PaintBoard() {
   const cancelPainting = () => {
     setIsPainting(false);
   };
+
+  const onLineWidth = (e) => {
+    setLineWidth(e.target.value);
+    ctx.lineWidth = e.target.value;
+  };
+
+  console.log(lineWidth);
 
   return (
     <PaintBoardStyle>
@@ -110,7 +124,14 @@ export default function PaintBoard() {
             ></div>
           </li>
         </ul>
-        <input id="line-width" type="range" min="1" max="10" value="5" />
+        <input
+          id="line-width"
+          type="range"
+          min="1"
+          max="10"
+          value={lineWidth}
+          onChange={onLineWidth}
+        />
       </div>
     </PaintBoardStyle>
   );
