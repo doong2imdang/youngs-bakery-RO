@@ -8,6 +8,7 @@ export default function PaintBoard() {
   const [isPainting, setIsPainting] = useState(false);
   const [isFilling, setIsFilling] = useState(false);
   const [lineWidth, setLineWidth] = useState(5);
+  const [color, setColor] = useState("#000000");
 
   useEffect(() => {
     const canvasCtx = canvas.current.getContext("2d");
@@ -49,6 +50,17 @@ export default function PaintBoard() {
     }
   };
 
+  const onColorChange = (e) => {
+    ctx.strokeStyle = e.target.value;
+    ctx.fillStyle = e.target.value;
+  };
+
+  const onColorClick = (color) => {
+    setColor(color);
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+  };
+
   return (
     <PaintBoardStyle>
       <Canvas
@@ -84,54 +96,62 @@ export default function PaintBoard() {
         </ul>
         <ul className="colors">
           <li>
-            <input type="color" id="color" />
+            <input type="color" id="color" onChange={onColorChange} />
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#000000" }}
+              onClick={() => onColorClick("#000000")}
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#ffffff" }}
+              onClick={() => onColorClick("#ffffff")}
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#f40407" }}
+              onClick={() => onColorClick("#f40407")}
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#fcfd07" }}
+              onClick={() => onColorClick("#fcfd07")}
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#29fd09" }}
+              onClick={() => onColorClick("#29fd09")}
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#32fefd" }}
+              onClick={() => onColorClick("#32fefd")}
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#1d02fe" }}
+              onClick={() => onColorClick("#1d02fe")}
             ></div>
           </li>
           <li>
             <div
               className="color-option"
               style={{ backgroundColor: "#fe00ff" }}
+              onClick={() => onColorClick("#fe00ff")}
             ></div>
           </li>
         </ul>
