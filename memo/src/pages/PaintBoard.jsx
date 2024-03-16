@@ -66,6 +66,16 @@ export default function PaintBoard() {
     setIsFilling(false);
   };
 
+  const onSaveClick = () => {
+    const url = canvas.current.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.download = "myDrawingBoard.png";
+    link.href = url;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <PaintBoardStyle>
       <Canvas
@@ -94,7 +104,7 @@ export default function PaintBoard() {
             </button>
           </li>
           <li>
-            <button className="save-btn" type="button">
+            <button className="save-btn" type="button" onClick={onSaveClick}>
               Save
             </button>
           </li>
