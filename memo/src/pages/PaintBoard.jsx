@@ -6,6 +6,7 @@ export default function PaintBoard() {
 
   const [ctx, setCtx] = useState(undefined);
   const [isPainting, setIsPainting] = useState(false);
+  const [isFilling, setIsFilling] = useState(false);
   const [lineWidth, setLineWidth] = useState(5);
 
   useEffect(() => {
@@ -42,7 +43,11 @@ export default function PaintBoard() {
     ctx.lineWidth = e.target.value;
   };
 
-  console.log(lineWidth);
+  const onCanvasClick = () => {
+    if (isFilling) {
+      ctx.fillRect(0, 0, 500, 500);
+    }
+  };
 
   return (
     <PaintBoardStyle>
@@ -54,11 +59,17 @@ export default function PaintBoard() {
         onMouseDown={startPainting}
         onMouseUp={cancelPainting}
         onMouseLeave={cancelPainting}
+        onClick={onCanvasClick}
       ></Canvas>
       <div className="btns-colors">
         <ul className="btns">
           <li>
-            <button className="draw-mode-btn">Fill</button>
+            <button
+              className="draw-mode-btn"
+              onClick={() => setIsFilling(!isFilling)}
+            >
+              {isFilling ? "Paint" : "Fill"}
+            </button>
           </li>
           <li>
             <button className="erase-btn" type="button">
