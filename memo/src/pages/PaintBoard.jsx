@@ -8,7 +8,7 @@ export default function PaintBoard() {
   const [isPainting, setIsPainting] = useState(false);
   const [isFilling, setIsFilling] = useState(false);
   const [lineWidth, setLineWidth] = useState(5);
-  const [color, setColor] = useState("#000000");
+  const [_, setColor] = useState("#000000");
 
   useEffect(() => {
     const canvasCtx = canvas.current.getContext("2d");
@@ -61,6 +61,11 @@ export default function PaintBoard() {
     ctx.fillStyle = color;
   };
 
+  const onErase = () => {
+    ctx.strokeStyle = "white";
+    setIsFilling(false);
+  };
+
   return (
     <PaintBoardStyle>
       <Canvas
@@ -84,7 +89,7 @@ export default function PaintBoard() {
             </button>
           </li>
           <li>
-            <button className="erase-btn" type="button">
+            <button className="erase-btn" type="button" onClick={onErase}>
               Erase
             </button>
           </li>
