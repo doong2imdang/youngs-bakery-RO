@@ -1,15 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 export default function Calendar() {
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+
+  const getNextMonth = () => {
+    setCurrentDate((prevDate) => {
+      const nextDate = new Date(prevDate);
+      nextDate.setMonth(nextDate.getMonth() + 1);
+      return nextDate;
+    });
+  };
+
+  const getPreviousMonth = () => {
+    setCurrentDate((prevDate) => {
+      const prevDateCopy = new Date(prevDate);
+      prevDateCopy.setMonth(prevDateCopy.getMonth() - 1);
+      return prevDateCopy;
+    });
+  };
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const getDaysInMonth = (year, month) => {
+    return new Date(year, month + 1, 0).getDate();
+  };
+
+  const daysInMonth = getDaysInMonth(year, month);
+  const firstDayOfMonth = new Date(year, month, 1).getDay();
+
+  const calendarRows = [];
+  let dayNumber = 1;
+
+  for (let i = 0; i < 5; i++) {
+    const calendarCells = [];
+    for (let j = 0; j < 7; j++) {
+      if (i === 0 && j < firstDayOfMonth) {
+        // 첫째 주에는 빈 셀을 추가
+        calendarCells.push(<td key={`empty-${j}`}></td>);
+      } else if (dayNumber <= daysInMonth) {
+        // 현재 월의 날짜를 추가
+        calendarCells.push(<td key={dayNumber}>{dayNumber}</td>);
+        dayNumber++;
+      } else {
+        // 마지막 주에는 빈 셀을 추가
+        calendarCells.push(<td key={`empty-${j}`}></td>);
+      }
+    }
+    calendarRows.push(<tr key={i}>{calendarCells}</tr>);
+    if (dayNumber > daysInMonth) break;
+  }
+
   return (
     <>
       <YearAndMonth>
-        <button type="button">◀</button>
+        <button type="button" onClick={getPreviousMonth}>
+          ◀
+        </button>
         <p>
-          <span>2024</span>, <span>March</span>
+          <span>{year}</span>, <span>{months[month]}</span>
         </p>
-        <button type="button">▶</button>
+        <button type="button" onClick={getNextMonth}>
+          ▶
+        </button>
       </YearAndMonth>
       <CalendarTable>
         <thead>
@@ -23,53 +91,7 @@ export default function Calendar() {
             <th>Sat</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td></td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-          </tr>
-          <tr>
-            <td>14</td>
-            <td>15</td>
-            <td>16</td>
-            <td>17</td>
-            <td>18</td>
-            <td>19</td>
-            <td>20</td>
-          </tr>
-          <tr>
-            <td>21</td>
-            <td>22</td>
-            <td>23</td>
-            <td>24</td>
-            <td>25</td>
-            <td>26</td>
-            <td>27</td>
-          </tr>
-          <tr>
-            <td>28</td>
-            <td>29</td>
-            <td>30</td>
-            <td>31</td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
+        <tbody>{calendarRows}</tbody>
       </CalendarTable>
     </>
   );
