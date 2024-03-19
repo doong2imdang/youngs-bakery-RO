@@ -47,7 +47,7 @@ export default function Calendar() {
   const calendarRows = [];
   let dayNumber = 1;
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 6; i++) {
     const calendarCells = [];
     for (let j = 0; j < 7; j++) {
       if (i === 0 && j < firstDayOfMonth) {
