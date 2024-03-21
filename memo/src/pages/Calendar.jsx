@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import ScheduleModal from "../components/ScheduleModal";
 
 export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -68,6 +69,7 @@ export default function Calendar() {
 
   return (
     <>
+      <ScheduleModal />
       <YearAndMonth>
         <button type="button" onClick={getPreviousMonth}>
           ◀
