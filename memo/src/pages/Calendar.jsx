@@ -6,6 +6,8 @@ export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
+  const today = new Date().getDate();
+  const currentMonth = new Date().getMonth();
 
   const getNextMonth = () => {
     setCurrentDate((prevDate) => {
@@ -56,7 +58,16 @@ export default function Calendar() {
         calendarCells.push(<td key={`empty-${j}`}></td>);
       } else if (dayNumber <= daysInMonth) {
         // 현재 월의 날짜를 추가
-        calendarCells.push(<td key={dayNumber}>{dayNumber}</td>);
+        const currentDay = new Date(year, month, dayNumber).getDate();
+        const isCurrentMonth = month === currentMonth;
+        calendarCells.push(
+          <td
+            key={dayNumber}
+            className={isCurrentMonth && currentDay === today ? "today" : ""}
+          >
+            {dayNumber}
+          </td>
+        );
         dayNumber++;
       } else {
         // 마지막 주에는 빈 셀을 추가
@@ -153,6 +164,11 @@ const CalendarTable = styled.table`
 
     td {
       padding: 15px 0;
+
+      &.today {
+        background-color: var(--color-blue);
+        color: white;
+      }
 
       span {
         cursor: pointer;

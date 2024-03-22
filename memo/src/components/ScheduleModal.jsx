@@ -9,7 +9,7 @@ export default function ScheduleModal() {
       </strong>
       <AddedContent>
         <AddedBox>
-          <p>
+          {/* <p>
             ▶<span>메모장완성하기</span>
           </p>
           <p>
@@ -20,7 +20,7 @@ export default function ScheduleModal() {
           </p>
           <p>
             ▶<span>이력서 수정하기</span>
-          </p>
+          </p> */}
         </AddedBox>
         <ScheduleInput type="text" />
         <AddCancelBtns>
@@ -42,7 +42,7 @@ const AddSchedule = styled.div`
   transform: translate(-40%, -50%);
   box-shadow: inset 5px 5px 1px white, 5px 5px 2px black;
   z-index: 1000;
-  /* display: none; */
+  display: none;
 
   strong {
     display: block;
@@ -70,7 +70,7 @@ const AddedBox = styled.div`
   padding: 10px 15px;
   line-height: 30px;
   margin: 25px 0 0 0;
-  /* display: none; */
+  display: none;
 
   spna {
     padding-left: 4px;
