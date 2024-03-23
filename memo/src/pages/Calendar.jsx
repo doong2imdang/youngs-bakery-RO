@@ -61,11 +61,13 @@ export default function Calendar() {
         const currentDay = new Date(year, month, dayNumber).getDate();
         const isCurrentMonth = month === currentMonth;
         calendarCells.push(
-          <td
-            key={dayNumber}
-            className={isCurrentMonth && currentDay === today ? "today" : ""}
-          >
-            {dayNumber}
+          <td>
+            <span
+              key={dayNumber}
+              className={isCurrentMonth && currentDay === today ? "today" : ""}
+            >
+              {dayNumber}
+            </span>
           </td>
         );
         dayNumber++;
@@ -165,13 +167,14 @@ const CalendarTable = styled.table`
     td {
       padding: 15px 0;
 
-      &.today {
-        background-color: var(--color-blue);
-        color: white;
-      }
-
       span {
         cursor: pointer;
+
+        &.today {
+          background-color: var(--color-blue);
+          color: white;
+          padding: 9px 20px;
+        }
       }
     }
   }
