@@ -1,11 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function ScheduleModal() {
+export default function ScheduleModal({ onCancel, year, month, day }) {
+  const handleCancel = () => {
+    onCancel();
+  };
   return (
     <AddSchedule>
       <strong>
-        <span>2024/04/04</span> 일정 추가
+        <span>
+          {year}/{month}/{day}
+        </span>{" "}
+        일정 추가
       </strong>
       <AddedContent>
         <AddedBox>
@@ -25,7 +31,9 @@ export default function ScheduleModal() {
         <ScheduleInput type="text" />
         <AddCancelBtns>
           <button type="button">추가</button>
-          <button type="button">취소</button>
+          <button type="button" onClick={handleCancel}>
+            취소
+          </button>
         </AddCancelBtns>
       </AddedContent>
     </AddSchedule>
@@ -42,7 +50,6 @@ const AddSchedule = styled.div`
   transform: translate(-40%, -50%);
   box-shadow: inset 5px 5px 1px white, 5px 5px 2px black;
   z-index: 1000;
-  display: none;
 
   strong {
     display: block;

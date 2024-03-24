@@ -4,6 +4,9 @@ import ScheduleModal from "../components/ScheduleModal";
 
 export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [clickState, setClickState] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const today = new Date().getDate();
@@ -23,6 +26,21 @@ export default function Calendar() {
       prevDateCopy.setMonth(prevDateCopy.getMonth() - 1);
       return prevDateCopy;
     });
+  };
+
+  const onClickDate = (dayNumber) => (event) => {
+    setSelectedDate({
+      year: year,
+      month: month + 1,
+      day: dayNumber,
+    });
+    setClickState(true);
+  };
+
+  console.log(selectedDate);
+
+  const handleCancel = () => {
+    setClickState(false);
   };
 
   const months = [
@@ -61,10 +79,10 @@ export default function Calendar() {
         const currentDay = new Date(year, month, dayNumber).getDate();
         const isCurrentMonth = month === currentMonth;
         calendarCells.push(
-          <td>
+          <td key={dayNumber}>
             <span
-              key={dayNumber}
               className={isCurrentMonth && currentDay === today ? "today" : ""}
+              onClick={onClickDate(dayNumber)}
             >
               {dayNumber}
             </span>
@@ -82,7 +100,15 @@ export default function Calendar() {
 
   return (
     <>
-      <ScheduleModal />
+      {clickState && (
+        <ScheduleModal
+          year={selectedDate.year}
+          month={selectedDate.month}
+          day={selectedDate.day}
+          clickState={clickState}
+          onCancel={handleCancel}
+        />
+      )}
       <YearAndMonth>
         <button type="button" onClick={getPreviousMonth}>
           ◀
