@@ -2,14 +2,30 @@ import React from "react";
 import styled from "styled-components";
 
 export default function ScheduleModal({ onCancel, year, month, day }) {
+  let fixedMonth;
+  let fixedDay;
+
+  if (month < 10) {
+    fixedMonth = "0" + month;
+  } else {
+    fixedMonth = month;
+  }
+
+  if (day < 10) {
+    fixedDay = "0" + day;
+  } else {
+    fixedDay = day;
+  }
+
   const handleCancel = () => {
     onCancel();
   };
+
   return (
     <AddSchedule>
       <strong>
         <span>
-          {year}/{month}/{day}
+          {year}/{fixedMonth}/{fixedDay}
         </span>{" "}
         일정 추가
       </strong>
