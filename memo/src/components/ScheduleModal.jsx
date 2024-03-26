@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 export default function ScheduleModal({ onCancel, year, month, day }) {
+  const [schedule, setSchedule] = useState([]);
+  const [inputSchedule, setInputSchedule] = useState("");
+  const [isAddedBoxVisible, setIsAddedBoxVisible] = useState(false);
   let fixedMonth;
   let fixedDay;
 
@@ -21,6 +24,18 @@ export default function ScheduleModal({ onCancel, year, month, day }) {
     onCancel();
   };
 
+  const handleAddBtn = () => {
+    if (inputSchedule.trim() !== "") {
+      setSchedule([...schedule, inputSchedule]);
+      setInputSchedule("");
+      setIsAddedBoxVisible(true);
+    }
+  };
+
+  const onChangeInput = (e) => {
+    setInputSchedule(e.target.value);
+  };
+
   return (
     <AddSchedule>
       <strong>
@@ -30,23 +45,22 @@ export default function ScheduleModal({ onCancel, year, month, day }) {
         일정 추가
       </strong>
       <AddedContent>
-        <AddedBox>
-          {/* <p>
-            ▶<span>메모장완성하기</span>
-          </p>
-          <p>
-            ▶<span>달력 일정 추가 모달 완성하기</span>
-          </p>
-          <p>
-            ▶<span>깃헙 커밋 남기기</span>
-          </p>
-          <p>
-            ▶<span>이력서 수정하기</span>
-          </p> */}
+        <AddedBox style={{ display: isAddedBoxVisible ? "block" : "none" }}>
+          {schedule.map((item, index) => (
+            <p key={index}>
+              ▶<span>{item}</span>
+            </p>
+          ))}
         </AddedBox>
-        <ScheduleInput type="text" />
+        <ScheduleInput
+          type="text"
+          onChange={onChangeInput}
+          value={inputSchedule}
+        />
         <AddCancelBtns>
-          <button type="button">추가</button>
+          <button type="button" onClick={handleAddBtn}>
+            추가
+          </button>
           <button type="button" onClick={handleCancel}>
             취소
           </button>
@@ -95,7 +109,7 @@ const AddedBox = styled.div`
   margin: 25px 0 0 0;
   display: none;
 
-  spna {
+  span {
     padding-left: 4px;
   }
 `;
