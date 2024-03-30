@@ -5,20 +5,8 @@ export default function ScheduleModal({ onCancel, year, month, day }) {
   const [schedule, setSchedule] = useState([]);
   const [inputSchedule, setInputSchedule] = useState("");
   const [isAddedBoxVisible, setIsAddedBoxVisible] = useState(false);
-  let fixedMonth;
-  let fixedDay;
-
-  if (month < 10) {
-    fixedMonth = "0" + month;
-  } else {
-    fixedMonth = month;
-  }
-
-  if (day < 10) {
-    fixedDay = "0" + day;
-  } else {
-    fixedDay = day;
-  }
+  const fixedMonth = month < 10 ? `0${month}` : month;
+  const fixedDay = day < 10 ? `0${day}` : day;
 
   const handleCancel = () => {
     onCancel();
