@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 export default function ScheduleModal({ onCancel, year, month, day }) {
@@ -7,6 +7,17 @@ export default function ScheduleModal({ onCancel, year, month, day }) {
   const [isAddedBoxVisible, setIsAddedBoxVisible] = useState(false);
   const fixedMonth = month < 10 ? `0${month}` : month;
   const fixedDay = day < 10 ? `0${day}` : day;
+  const fixedDate = `${year}/${fixedMonth}/${fixedDay}`;
+
+  useEffect(() => {
+    const savedSchedule = localStorage.getItem(`${fixedDate}_schedule`);
+    if (savedSchedule) {
+      setSchedule(JSON.parse(savedSchedule));
+      setIsAddedBoxVisible(true);
+    } else {
+      setIsAddedBoxVisible(false);
+    }
+  }, [year, month, day, fixedDate]);
 
   const handleCancel = () => {
     onCancel();
@@ -14,7 +25,12 @@ export default function ScheduleModal({ onCancel, year, month, day }) {
 
   const handleAddBtn = () => {
     if (inputSchedule.trim() !== "") {
-      setSchedule([...schedule, inputSchedule]);
+      const updatedSchedule = [...schedule, inputSchedule];
+      setSchedule(updatedSchedule);
+      localStorage.setItem(
+        `${fixedDate}_schedule`,
+        JSON.stringify(updatedSchedule)
+      );
       setInputSchedule("");
       setIsAddedBoxVisible(true);
     }
@@ -27,10 +43,7 @@ export default function ScheduleModal({ onCancel, year, month, day }) {
   return (
     <AddSchedule>
       <strong>
-        <span>
-          {year}/{fixedMonth}/{fixedDay}
-        </span>{" "}
-        일정 추가
+        <span>{fixedDate}</span> 일정 추가
       </strong>
       <AddedContent>
         <AddedBox style={{ display: isAddedBoxVisible ? "block" : "none" }}>
