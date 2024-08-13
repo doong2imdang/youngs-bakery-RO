@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/youngs-bakery-RO/memo/static/css/main.a922f820.css",
-    "main.js": "/youngs-bakery-RO/memo/static/js/main.e3473382.js",
+    "main.js": "/youngs-bakery-RO/memo/static/js/main.dee5340e.js",
     "static/media/slider5.jpg": "/youngs-bakery-RO/memo/static/media/slider5.a9583d859b56fa1326a3.jpg",
     "static/media/slider3.jpg": "/youngs-bakery-RO/memo/static/media/slider3.8428060cdd95a5c1c108.jpg",
     "static/media/slider4.jpg": "/youngs-bakery-RO/memo/static/media/slider4.a03fc6dca1258d44c169.jpg",
@@ -17,10 +17,10 @@
     "static/media/delete-btn.svg": "/youngs-bakery-RO/memo/static/media/delete-btn.1116558d89c41d466f68fc553385c1b8.svg",
     "index.html": "/youngs-bakery-RO/memo/index.html",
     "main.a922f820.css.map": "/youngs-bakery-RO/memo/static/css/main.a922f820.css.map",
-    "main.e3473382.js.map": "/youngs-bakery-RO/memo/static/js/main.e3473382.js.map"
+    "main.dee5340e.js.map": "/youngs-bakery-RO/memo/static/js/main.dee5340e.js.map"
   },
   "entrypoints": [
     "static/css/main.a922f820.css",
-    "static/js/main.e3473382.js"
+    "static/js/main.dee5340e.js"
   ]
 }
